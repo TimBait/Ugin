@@ -1,0 +1,7 @@
+Django~=3.2.10
+*.pyc
+*~
+__pycache__
+/myvenv
+/static
+.DS_Store
