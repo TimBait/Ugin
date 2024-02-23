@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.contrib import messages
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ('device_type', 'device_model')
+    list_display = ('device_type', 'device_model', 'device_add_time')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "device_model":
