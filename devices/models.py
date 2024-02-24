@@ -48,7 +48,7 @@ class Parameter(models.Model):
                                    validators=[RegexValidator(regex=r'^([0-9a-fA-F]{2}[:-]){5}([0-9a-fA-F]{2})$')])
     device_role = models.CharField(max_length=20, choices=DEVICE_ROLE_CHOICES)
     port_numbers = models.CharField(max_length=4, choices=PORT_NUMBERS_CHOICES)
-    cam_number
+    
 
     def __str__(self):
         return str(self.pk)

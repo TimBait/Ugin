@@ -18,7 +18,7 @@ class DeviceAdmin(admin.ModelAdmin):
         if db_field.name == "device_model":
             device_type_id = request.POST.get('device_type') or \
                              kwargs.get('initial', {}).get(
-                                 'device_type_id')
+                                 'device_type_id')  
             if device_type_id:
                 kwargs["queryset"] = DeviceModel.objects.filter(device_type_id=device_type_id)
             else:
@@ -42,5 +42,10 @@ class DeviceModelAdmin(admin.ModelAdmin):
     list_filter = ['device_type']
 
 
+@admin.register(Parameter)
+class ParameterAdmin(admin.ModelAdmin):
+    list_display = ['device', 'ip_address']
+
+
 admin.site.register(DeviceType)
-admin.site.register(Parameter)
+
