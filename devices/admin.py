@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Device, DeviceType, DeviceModel
+from .models import Device, DeviceType, DeviceModel, Parameter
 from django.utils.translation import gettext as _
 from django.contrib import messages
 
@@ -30,3 +30,4 @@ class DeviceAdmin(admin.ModelAdmin):
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(DeviceType)
 admin.site.register(DeviceModel)
+admin.site.register(Parameter)
