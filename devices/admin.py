@@ -1,15 +1,24 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from .models import Device, DeviceType, DeviceModel, Parameter
-from django.utils.translation import gettext as _
-from django.contrib import messages
 
+
+
+class ParameterInline(admin.StackedInline):
+    model = Parameter
+    extra = 1
+
+
+@admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ('device_type', 'device_model', 'device_add_time')
+    list_display = ['id', 'device_type', 'device_model', 'device_add_time']
+    list_filter = ['device_type']
+    inlines = [ParameterInline]
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "device_model":
             device_type_id = request.POST.get('device_type') or \
-                             kwargs.get('initial', {}).get('device_type_id')  # Получаем device_type_id из начальных данных
+                             kwargs.get('initial', {}).get(
+                                 'device_type_id')
             if device_type_id:
                 kwargs["queryset"] = DeviceModel.objects.filter(device_type_id=device_type_id)
             else:
@@ -18,16 +27,20 @@ class DeviceAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        if obj:  # Если устройство уже существует (редактирование)
+        if obj:
             form.base_fields['device_model'].queryset = DeviceModel.objects.filter(device_type=obj.device_type)
         return form
 
     def message_user(self, request, message, level=messages.INFO, extra_tags='', fail_silently=False):
-        message = _('Устройство создано !')
+        message = ('Устройство создано !')
         return super().message_user(request, message, level=level, extra_tags=extra_tags, fail_silently=fail_silently)
 
 
-admin.site.register(Device, DeviceAdmin)
+@admin.register(DeviceModel)
+class DeviceModelAdmin(admin.ModelAdmin):
+    list_display = ['name', 'device_type']
+    list_filter = ['device_type']
+
+
 admin.site.register(DeviceType)
-admin.site.register(DeviceModel)
 admin.site.register(Parameter)
