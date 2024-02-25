@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск устройства</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            flex-direction: column;
+        }
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+        }
+        button[type="submit"], .create-device button {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #dc3545;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+        button[type="submit"]:hover, .create-device button:hover {
+            background-color: #c82333;
+        }
+        .container.devices-list {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column; /* Отображение в столбик */
+        }
+        .container.devices-list p {
+            margin: 0; /* Убираем отступ у параграфа */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Новый блок -->
+    <div class="container devices-list">
+        <fieldset>
+            <p align="center">Список устройств на сети</p>
+        </fieldset>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Модель</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <td>{{ device.id }}</td>
+                    <td>{{ device.device_model }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    <div class="container">
+        <form action="{% url 'search_device' %}" method="GET">
+            <h1>Поиск устройства по ID</h1>
+            <input type="text" id="device_id" name="device_id">
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+</body>
+</html>

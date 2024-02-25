@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Просмотр устройства</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #222; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+        }
+        #container {
+            background-color: #333; /* Цвет фона контейнера */
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        #device-info, #parameters {
+            margin-top: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Информация об устройстве</h1>
+        <div id="device-info">
+            <p><strong>ID устройства в системе:</strong> <span id="id"></span></p>
+            <li>{{ device.id }}</li>
+            <p><strong>Тип устройства:</strong> <span id="model"></span></p>
+            <li>{{ device.device_type }}</li>
+            <p><strong>Модель устройства:</strong> <span id="model"></span></p>
+            <li>{{ device.device_model }}</li>
+        </div>
+        <h2>Параметры устройства</h2>
+        <div id="parameters">
+            {% if device.device_type.parameter_settings == '1' %}
+                {% for parameter in parameters %}
+                    <li><strong>На Сети:</strong>  {{ parameter.on_the_network }} </li>
+                    <li><strong>SN:</strong>  {{ parameter.serial_number }}  </li>
+                    <li><strong>MAC:</strong>  {{ parameter.mac_address }} </li>
+                    <li><strong>Роль:</strong>  {{ parameter.device_role }} </li>
+                    <li><strong>Количество портов:</strong>  {{ parameter.port_numbers }} </li>
+                {% endfor %}
+            {% elif device.device_type.parameter_settings == '2' %}
+                {% for parameter in parameters %}
+                    <li><strong>На Сети:</strong>  {{ parameter.on_the_network }} </li>
+                    <li><strong>IP:</strong>  {{ parameter.ip_address }}  </li>
+                    <li><strong>Номер Камеры:</strong>  {{ parameter.cam_number }} </li>
+                    <li><strong>Наличие микрофона:</strong>  {{ parameter.micro }} </li>
+                    <li><strong>Угол обзора:</strong>  {{ parameter.view_angle }} </li>
+                    <li><strong>Комментарий:</strong>  {{ parameter.comment}} </li>
+                {% endfor %}
+            {% elif device.device_type.parameter_settings == '3' %}
+                {% for parameter in parameters %}
+                    <li><strong>На Сети:</strong>  {{ parameter.on_the_network }} </li>
+                    <li><strong>IP:</strong>  {{ parameter.ip_address }}  </li>
+                    <li><strong>MAC:</strong>  {{ parameter.mac_address }} </li>
+                    <li><strong>Азимут:</strong>  {{ parameter.azimuth }} </li>
+                    <li><strong>Высота антенны:</strong>  {{ parameter.antenna_height }} </li>
+                    <li><strong>Комментарий:</strong>  {{ parameter.comment}} </li>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

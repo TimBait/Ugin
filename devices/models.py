@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
-
+from django.utils.translation import gettext_lazy as _
 
 class DeviceType(models.Model):
     PARAM_SET = (
@@ -9,7 +9,7 @@ class DeviceType(models.Model):
         ('3', 'Wifi'),
     )
     name = models.CharField(max_length=25)
-    parameter_settings = models.CharField(max_length=15, choices=PARAM_SET)
+    parameter_settings = models.CharField(max_length=15, choices=PARAM_SET, verbose_name=_("Parameter settings"))
 
     def __str__(self):
         return self.name
@@ -34,11 +34,11 @@ class Device(models.Model):
 
 class Parameter(models.Model):
     DEVICE_ROLE_CHOICES = (
-        ('KV', 'Квартальный'),
-        ('SUBKL', 'Субкольцевой'),
-        ('KL', 'Кольцевой'),
-        ('VK', 'Вход в квартал'),
-        ('PVK', 'Идеальный ВК'),
+        ('Квартальный', 'Квартальный'),
+        ('Субкольцевой', 'Субкольцевой'),
+        ('Кольцевой', 'Кольцевой'),
+        ('Вход в квартал', 'Вход в квартал'),
+        ('Идеальный ВК', 'Идеальный ВК'),
     )
     PORT_NUMBERS_CHOICES = (
         ('8', '8'),
@@ -53,19 +53,25 @@ class Parameter(models.Model):
         ('60', '60'),
     )
     device = models.OneToOneField(Device, on_delete=models.CASCADE)
-    on_the_network = models.BooleanField()
-    ip_address = models.GenericIPAddressField(unique=True)
-    serial_number = models.CharField(max_length=20, null=True, blank=True, unique=True)
+    on_the_network = models.BooleanField(verbose_name=_("On the network"), null=True, blank=True)
+    ip_address = models.GenericIPAddressField(verbose_name=_("IP address"), unique=True)
+    serial_number = models.CharField(max_length=20, null=True, blank=True, unique=True, verbose_name=_("Serial number"))
     mac_address = models.CharField(max_length=17, null=True, blank=True, unique=True,
-                                   validators=[RegexValidator(regex=r'^([0-9a-fA-F]{2}[:-]){5}([0-9a-fA-F]{2})$')])
-    device_role = models.CharField(max_length=20, null=True, blank=True, choices=DEVICE_ROLE_CHOICES)
-    port_numbers = models.CharField(max_length=4, null=True, blank=True, choices=PORT_NUMBERS_CHOICES)
-    cam_number = models.CharField(max_length=16, null=True, blank=True)
-    micro = models.BooleanField(null=True, blank=True)
-    view_angle = models.CharField(null=True, blank=True, max_length=5, choices=VIEW_ANGLE_CHOICES)
-    azimuth = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    antenna_height = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    comment = models.CharField(null=True, blank=True, max_length=50)
+                                   validators=[RegexValidator(regex=r'^([0-9a-fA-F]{2}[:-]){5}([0-9a-fA-F]{2})$')],
+                                   verbose_name=_("MAC address"))
+    device_role = models.CharField(max_length=20, null=True, blank=True, choices=DEVICE_ROLE_CHOICES,
+                                   verbose_name=_("Device role"))
+    port_numbers = models.CharField(max_length=4, null=True, blank=True, choices=PORT_NUMBERS_CHOICES,
+                                     verbose_name=_("Port numbers"))
+    cam_number = models.CharField(max_length=16, null=True, blank=True, verbose_name=_("Cam number"))
+    micro = models.BooleanField(null=True, blank=True, verbose_name=_("Micro"))
+    view_angle = models.CharField(null=True, blank=True, max_length=5, choices=VIEW_ANGLE_CHOICES,
+                                   verbose_name=_("View angle"))
+    azimuth = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)],
+                                   verbose_name=_("Azimuth"))
+    antenna_height = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)],
+                                          verbose_name=_("Antenna height"))
+    comment = models.CharField(null=True, blank=True, max_length=50, verbose_name=_("Comment"))
 
     def __str__(self):
         return str(self.pk)
