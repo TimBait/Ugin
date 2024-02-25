@@ -44,7 +44,7 @@ class DeviceModelAdmin(admin.ModelAdmin):
 
 @admin.register(Parameter)
 class ParameterAdmin(admin.ModelAdmin):
-    list_display = ['device', 'ip_address']
+    list_display = ['device']
 
 
 admin.site.register(DeviceType)
