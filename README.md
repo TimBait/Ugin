@@ -67,14 +67,14 @@ manage.py - управляющий скрипт Django.
 
 
 3. **Через API**
-- path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все  ![image](https://github.com/TimBait/Ugin/assets/151711444/44b7bf6a-e5ea-4a14-a59c-c1cad0101690)
+- path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все  
 
 
-- path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device  ![image](https://github.com/TimBait/Ugin/assets/151711444/60804ecb-ab07-4ee8-812e-ad8312d3cdd3)
+- path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device  
 
 
-- path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей    ![image](https://github.com/TimBait/Ugin/assets/151711444/4f7a8cf7-aca2-4ec9-bdaa-e04d57f948ed)
+- path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей    
 
-- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов    ![image](https://github.com/TimBait/Ugin/assets/151711444/344fd9a4-b795-4713-b0bd-5949b98fc6bf)
+- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов    
 
 
