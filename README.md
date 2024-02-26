@@ -54,14 +54,23 @@ manage.py - управляющий скрипт Django.
 
 **Для получения данных есть несколько способов**
 
-1. Через админку Django
+1. **Через админку Django**
 
-2. Через формы
-- device/ - отображение списка устройств на сети + форма для указания ID и перехода к 'device/<int:device_id>/'
-- device/<int:device_id>/ - отображение параметров устройства
 
-3. Через API
-- path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все
-- path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device
-- path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей
-- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов
+2. **Через формы**
+- device/ - отображение списка устройств на сети + форма для указания ID и перехода к 'device/<int:device_id>/'   ![image](https://github.com/TimBait/Ugin/assets/151711444/48955d6c-7727-49a6-bc1e-dd5f724e1bcd)
+
+- device/<int:device_id>/ - отображение параметров устройства   ![image](https://github.com/TimBait/Ugin/assets/151711444/a05cf2d6-6241-447c-9649-91de83f94c46)
+
+
+
+3. **Через API**
+- path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все  ![image](https://github.com/TimBait/Ugin/assets/151711444/5587e5cd-19d7-4adc-aee7-26adfe742072)
+
+- path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device  ![image](https://github.com/TimBait/Ugin/assets/151711444/e6619c64-4017-40d8-9b6a-5bfab087e02b)
+
+- path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей    ![image](https://github.com/TimBait/Ugin/assets/151711444/4f7a8cf7-aca2-4ec9-bdaa-e04d57f948ed)
+
+- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов    ![image](https://github.com/TimBait/Ugin/assets/151711444/344fd9a4-b795-4713-b0bd-5949b98fc6bf)
+
+
