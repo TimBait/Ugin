@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Device, DeviceType, Parameter,DeviceModel
+from rest_framework.pagination import PageNumberPagination
 
 
 class ParameterSerializer(serializers.ModelSerializer):
@@ -9,6 +10,8 @@ class ParameterSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        data.pop('device', None)
+        data.pop('id', None)
         return {key: value for key, value in data.items() if value is not None}
 
 
