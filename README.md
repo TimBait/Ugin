@@ -64,4 +64,4 @@ manage.py - управляющий скрипт Django.
 - path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все
 - path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device
 - path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей
-- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),     #get всех типов
+- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов
