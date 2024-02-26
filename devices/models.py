@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
+
 class DeviceType(models.Model):
     PARAM_SET = (
         ('1', 'Switch'),
@@ -10,6 +11,7 @@ class DeviceType(models.Model):
     )
     name = models.CharField(max_length=25)
     parameter_settings = models.CharField(max_length=15, choices=PARAM_SET, verbose_name=_("Parameter settings"))
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -18,6 +20,7 @@ class DeviceType(models.Model):
 class DeviceModel(models.Model):
     name = models.CharField(max_length=100)
     device_type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -27,6 +30,7 @@ class Device(models.Model):
     device_add_time = models.DateTimeField(auto_now_add=True, editable=False)
     device_type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
     device_model = models.ForeignKey(DeviceModel, on_delete=models.CASCADE)
+    objects = models.Manager()
 
     def __str__(self):
         return str(self.pk)
@@ -62,16 +66,17 @@ class Parameter(models.Model):
     device_role = models.CharField(max_length=20, null=True, blank=True, choices=DEVICE_ROLE_CHOICES,
                                    verbose_name=_("Device role"))
     port_numbers = models.CharField(max_length=4, null=True, blank=True, choices=PORT_NUMBERS_CHOICES,
-                                     verbose_name=_("Port numbers"))
+                                    verbose_name=_("Port numbers"))
     cam_number = models.CharField(max_length=16, null=True, blank=True, verbose_name=_("Cam number"))
     micro = models.BooleanField(null=True, blank=True, verbose_name=_("Micro"))
     view_angle = models.CharField(null=True, blank=True, max_length=5, choices=VIEW_ANGLE_CHOICES,
-                                   verbose_name=_("View angle"))
+                                  verbose_name=_("View angle"))
     azimuth = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)],
-                                   verbose_name=_("Azimuth"))
+                                  verbose_name=_("Azimuth"))
     antenna_height = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)],
-                                          verbose_name=_("Antenna height"))
+                                         verbose_name=_("Antenna height"))
     comment = models.CharField(null=True, blank=True, max_length=50, verbose_name=_("Comment"))
+    objects = models.Manager()
 
     def __str__(self):
         return str(self.pk)

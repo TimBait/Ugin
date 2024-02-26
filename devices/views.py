@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 
-def Device_view(request):
+def device_view(request):
     device_id = request.GET.get('device_id')
     if device_id:
         try:
@@ -20,7 +20,8 @@ def Device_view(request):
     else:
         return render(request, 'search_device.html')
 
-def search_device(request):           #представление для формы поиска device
+
+def search_device(request):  # представление для формы поиска device
     if 'device_id' in request.GET:
         device_id = request.GET['device_id']
         try:
@@ -33,7 +34,6 @@ def search_device(request):           #представление для фор�
     else:
         devices = Device.objects.all()
         return render(request, 'devices/search_device.html', {'devices': devices})
-
 
 
 class DeviceListView(APIView):
@@ -65,5 +65,3 @@ class DeviceTypeListView(APIView):
         queryset = DeviceType.objects.all()
         serializer = DeviceTypeSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-

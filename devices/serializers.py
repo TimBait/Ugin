@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Device, DeviceType, Parameter,DeviceModel
-from rest_framework.pagination import PageNumberPagination
+from .models import Device, DeviceType, Parameter, DeviceModel
 
 
 class ParameterSerializer(serializers.ModelSerializer):
@@ -32,6 +31,7 @@ class DeviceSerializer(serializers.ModelSerializer):
 
 class DeviceModelSerializer(serializers.ModelSerializer):
     device_type = serializers.CharField(source='device_type.name')
+
     class Meta:
         model = DeviceModel
         fields = '__all__'
@@ -40,4 +40,4 @@ class DeviceModelSerializer(serializers.ModelSerializer):
 class DeviceTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceType
-        fields = ['id' ,'name']
+        fields = ['id', 'name']
