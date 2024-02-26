@@ -66,15 +66,16 @@ manage.py - управляющий скрипт Django.
 
 
 
-3. **Через API**
-- path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все  
+3. ~~**Через API**~~ 
+- ~~path('api_devices/', DeviceListView.as_view(), name='product-list'),     #get на все~~  
+
+- ~~path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device~~ 
 
 
-- path('api_device/<int:device_id>/', DeviceAPIView.as_view(), name='device_api'),      #get по id device  
+- ~~path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей~~    
 
+- ~~path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов ~~~~   
 
-- path('api_device_models/', DeviceModelListView.as_view(), name='device_model_api'),     #get всех моделей    
-
-- path('api_device_types/', DeviceTypeListView.as_view(), name='device_model_api'),      #get всех типов    
-
+  **Через Swagger**
+  - /swagger/    ![image](https://github.com/TimBait/Ugin/assets/151711444/6c0df084-9c8e-4417-952a-a60ddee34cd4)
 
